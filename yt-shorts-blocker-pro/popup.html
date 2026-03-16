@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Shorts Blocker Pro</h2>
+        </div>
+        
+        <div class="card">
+            <div class="setting-row">
+                <span>Blocker Status</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-blocker" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="card stats-card">
+            <h3>Analytics</h3>
+            <div class="stat-box">
+                <span class="stat-number" id="blocked-count">0</span>
+                <span class="stat-label">Shorts Videos Blocked</span>
+            </div>
+            <!-- Estimation (approx 1 min saved per short) -->
+            <div class="stat-box">
+                <span class="stat-number" id="time-saved">0m</span>
+                <span class="stat-label">Est. Time Saved</span>
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
