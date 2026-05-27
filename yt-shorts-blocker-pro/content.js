@@ -6,9 +6,7 @@ styleElement.id = 'yt-shorts-blocker-style';
 styleElement.innerHTML = `
     ytd-reel-shelf-renderer,
     ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
-    ytd-item-section-renderer:has(ytd-reel-shelf-renderer),
     ytd-horizontal-card-list-renderer:has(ytd-reel-item-renderer),
-    ytd-shelf-renderer:has(ytd-reel-item-renderer),
     ytd-rich-item-renderer:has(a[href^="/shorts/"]),
     ytd-video-renderer:has(a[href^="/shorts/"]),
     ytd-grid-video-renderer:has(a[href^="/shorts/"]),
@@ -80,15 +78,16 @@ function removeShorts() {
     let newlyBlocked = 0;
 
     // Remove shorts shelf (home page, search results, related videos)
-    document.querySelectorAll("ytd-rich-section-renderer, ytd-reel-shelf-renderer, ytd-shelf-renderer, ytd-horizontal-card-list-renderer, ytd-item-section-renderer").forEach(section => {
+    // Only target sections that directly contain reel-shelf-renderer or reel-item-renderer
+    document.querySelectorAll("ytd-reel-shelf-renderer, ytd-rich-section-renderer, ytd-horizontal-card-list-renderer").forEach(section => {
         const isReelShelf = section.tagName.toLowerCase() === 'ytd-reel-shelf-renderer';
         const hasReelItems = section.querySelector('ytd-reel-item-renderer, yt-shorts-lockup-view-model') !== null;
         const hasReelShelfChild = section.querySelector('ytd-reel-shelf-renderer') !== null;
-        
+
         // Target title to check for shorts
         const titleElement = section.querySelector('#title, .title, yt-formatted-string');
         const hasShortsText = titleElement && titleElement.innerText && titleElement.innerText.trim().toLowerCase() === "shorts";
-        
+
         if (isReelShelf || hasReelItems || hasReelShelfChild || hasShortsText) {
             section.remove();
             newlyBlocked++;
